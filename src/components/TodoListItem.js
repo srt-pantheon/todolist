@@ -30,6 +30,7 @@ function TodoListItem(props) {
       <Row justify="center" style={{ alignItems: "center" }}>
         <Col span={5}>
           <input
+            disabled="disabled"
             type="text"
             id={"inputid_" + props.index}
             value={inputValue}
