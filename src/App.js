@@ -1,10 +1,10 @@
 import "antd/dist/antd.css";
-import TodoAdd from "./components/TodoAdd";
+import Todo from "./components/Todo";
 
 function App() {
   return (
     <div className="App">
-      <TodoAdd />
+      <Todo />
     </div>
   );
 }
