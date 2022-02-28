@@ -4,15 +4,35 @@ import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
 
 function Todo() {
-  const [arr, udateArr] = useState([]);
-  function changeArray() {
-    udateArr(["s", "r", "t"]);
+  const [todos, setTodos] = useState([]);
+
+  function addTodo(task){
+    // let arr = [todos, ...task];
+    let arr = todos;
+    console.log('task = ', task);
+    console.log('arr = ', arr);
+    console.log('arr after push = ', arr);
+    // let arr = [task];
+    // console.log('arr before setTodos = ', arr);
+    setTodos(arr.push(task));
+    console.log('todos = ', todos);
   }
+
+  function removeTodo(id){
+    let arr = todos.splice(id,1);
+    setTodos(arr);
+  }
+
+  function updateTodo(id, newValue){
+    let arr = todos;
+    arr[id] = newValue;
+    setTodos(arr);
+  }
+
   return (
-    <div className="App">
-      <button onClick={changeArray} type="submit">Change ARRAY</button>
-      <TodoAdd />
-      <TodoList arrayList={arr} />
+    <div className="Todo">
+      <TodoAdd onClick={addTodo}/>
+      {/* <TodoList todos={todos} /> */}
     </div>
   );
 }
