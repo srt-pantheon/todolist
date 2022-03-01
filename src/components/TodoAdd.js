@@ -1,25 +1,12 @@
 import { Row, Col, Button, Input } from "antd";
 import { useState } from "react";
-import TodoList from "./TodoList";
 
 function TodoAdd(props) {
-  // console.log('props.todos = ', props.todos);
-  const [inputValue, setInputValue] = useState('');
-  // const [myArray, updateMyArray] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   function addTodoHandler() {
-  //   // TODO - как красиво и правильно использовать массив с useState
-  //   // updateMyArray((existingItems) => {
-  //   // return [...existingItems, inputValue]
-  //   // });
-  //   updateMyArray((arr) => {
-  //     arr.push(inputValue);
-  //     return arr;
-  //   });
-  //   setInputValue();
-    console.log('inputValue = ', inputValue);
     props.onClick(inputValue);
-
+    setInputValue();
   }
 
   return (
