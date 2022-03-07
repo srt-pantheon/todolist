@@ -4,29 +4,44 @@ import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
 
 function Todo() {
+  console.log("TODO RERENDERED!");
   const [todos, setTodos] = useState([]);
+  const [uniqueId, setUniqueId] = useState(1);
 
   function addTodo(task) {
     const newTodos = [...todos, task];
     setTodos(newTodos);
+    setUniqueId((id) => id + 1);
   }
 
   function removeTodo(id) {
-    let arr = todos.splice(id, 1);
+    let idToRemove;
+    let arr = [...todos];
+    todos.forEach((item, index) => {
+      if (item.id == id) {
+        idToRemove = index;
+      }
+    });
+    arr.splice(idToRemove, 1);
     setTodos(arr);
   }
 
   function updateTodo(id, newValue) {
-    let arr = todos;
+    let idToUpdate;
+    let arr = [...todos];
+    todos.forEach((item, index) => {
+      if (item.id == id) {
+        idToUpdate = index;
+      }
+    });
     arr[id] = newValue;
     setTodos(arr);
   }
 
-  console.log("todos = ", todos);
   return (
     <div className="Todo">
-      <TodoAdd onClick={addTodo} />
-      {/* <TodoList todos={todos} /> */}
+      <TodoAdd onClick={addTodo} uniqueId={uniqueId} />
+      <TodoList todos={todos} removeFunc={removeTodo} updateFunc={updateTodo}/>
     </div>
   );
 }
