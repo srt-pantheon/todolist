@@ -3,6 +3,9 @@ import { useState } from "react";
 import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
 
+// Решил релизовать через функции колбэки получается. Какой вариант предпочтительнее так, или как делал в первый раз где
+// в каждую компопненту передавались пропсы и функции внутри этих компонент обрабатывали локальные данные??? 
+
 function Todo() {
   console.log("TODO RERENDERED!");
   const [todos, setTodos] = useState([]);
@@ -32,16 +35,16 @@ function Todo() {
     todos.forEach((item, index) => {
       if (item.id == id) {
         idToUpdate = index;
+        arr[index] = { id: id, task: newValue }; // почему работает без ковычек "id": id ???? 
       }
     });
-    arr[id] = newValue;
     setTodos(arr);
   }
 
   return (
     <div className="Todo">
       <TodoAdd onClick={addTodo} uniqueId={uniqueId} />
-      <TodoList todos={todos} removeFunc={removeTodo} updateFunc={updateTodo}/>
+      <TodoList todos={todos} removeFunc={removeTodo} updateFunc={updateTodo} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Row, Col, Button, Input } from "antd";
 import { CloseCircleOutlined, EditOutlined } from "@ant-design/icons";
 
 function TodoList(props) {
- const [listArr, changeListArr] = useState();
+  const [inputTest, changeInputTest] = useState("");
   console.log("props.todos = ", props.todos);
   console.log("TODOLIST RERENDERED!");
 
@@ -21,43 +21,29 @@ function TodoList(props) {
   }
 
   function toggleInput(event, taskId) {
-    let x = document.getElementsByName(taskId)[0];
+    let x = document.getElementById("input_" + taskId);
     x.hasAttribute("disabled")
       ? x.removeAttribute("disabled")
       : x.setAttribute("disabled", "true");
   }
 
-  // function toggleInput(event) {
-  //   let x = document.getElementById("inputid_" + props.index);
-  //   x.hasAttribute("disabled")
-  //     ? x.removeAttribute("disabled")
-  //     : x.setAttribute("disabled", "true");
-  // }
-
   function changeHandler(event, taskId) {
     event.preventDefault();
-    let x = document.getElementsByName(taskId)[0];
-    console.log(x);
-    x.setAttribute("value", "SRT");
-    console.log(x);
+    let x = document.getElementById("input_" + taskId); 
+    props.updateFunc(taskId, event.target.value); // есть ли другой вариант реализации обработки импута, или нужно постоянно ререндерить
   }
 
+  // Стоит ли вынести todoListItem в отдельную компоненту 
   function todoListItem(task) {
     return (
       <div key={task.id} style={{ margin: "10px auto" }}>
         <Row justify="center" style={{ alignItems: "center" }}>
           <Col span={5}>
-            {/* <input
-              disabled="disabled"
-              type="text"
-              value={inputValue}
-              onChange={(e) => changeHandler(e)}
-            /> */}
             <input
               disabled="disabled"
               type="text"
               value={task.task}
-              name={task.id}
+              id={"input_" + task.id}
               onChange={(e) => changeHandler(e, task.id)}
             />
           </Col>
@@ -78,7 +64,6 @@ function TodoList(props) {
           >
             <a>
               <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
-              {/* <EditOutlined /> */}
             </a>
           </Col>
         </Row>
@@ -86,19 +71,8 @@ function TodoList(props) {
     );
   }
 
+  // нормально ли делать такой return?
   return generateList(props.todos);
-
-  // if (props.todos.length == 0) {
-  //   return <div></div>;
-  // } else {
-  //   return (
-  //     <div>
-  //       {props.todos.map((item, index) => (
-  //         <TodoListItem key={index} task={item} index={index}/>
-  //       ))}
-  //     </div>
-  //   );
-  // }
 }
 
 export default TodoList;
