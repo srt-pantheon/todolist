@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Row, Col, Button, Input } from "antd";
+import { useState } from "react";
+import { Row, Col } from "antd";
 import { CloseCircleOutlined, EditOutlined } from "@ant-design/icons";
 
 function TodoList(props) {
