@@ -4,10 +4,9 @@ import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
 
 // Решил релизовать через функции колбэки получается. Какой вариант предпочтительнее так, или как делал в первый раз где
-// в каждую компопненту передавались пропсы и функции внутри этих компонент обрабатывали локальные данные??? 
+// в каждую компопненту передавались пропсы и функции внутри этих компонент обрабатывали локальные данные???
 
 function Todo() {
-  console.log("TODO RERENDERED!");
   const [todos, setTodos] = useState([]);
   const [uniqueId, setUniqueId] = useState(1);
 
@@ -18,25 +17,21 @@ function Todo() {
   }
 
   function removeTodo(id) {
-    let idToRemove;
-    let arr = [...todos];
-    todos.forEach((item, index) => {
+    let arr = todos.filter((item) => {
       if (item.id == id) {
-        idToRemove = index;
+        return false;
       }
+      return true;
     });
-    arr.splice(idToRemove, 1);
     setTodos(arr);
   }
 
   function updateTodo(id, newValue) {
-    let idToUpdate;
-    let arr = [...todos];
-    todos.forEach((item, index) => {
+    let arr = todos.map((item) => {
       if (item.id == id) {
-        idToUpdate = index;
-        arr[index] = { id: id, task: newValue }; // почему работает без ковычек "id": id ???? 
+        return { id: id, task: newValue };
       }
+      return item;
     });
     setTodos(arr);
   }

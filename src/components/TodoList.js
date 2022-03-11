@@ -4,8 +4,6 @@ import { CloseCircleOutlined, EditOutlined } from "@ant-design/icons";
 
 function TodoList(props) {
   const [inputTest, changeInputTest] = useState("");
-  console.log("props.todos = ", props.todos);
-  console.log("TODOLIST RERENDERED!");
 
   function generateList(arr) {
     let list = arr.map((item) => {
@@ -29,11 +27,11 @@ function TodoList(props) {
 
   function changeHandler(event, taskId) {
     event.preventDefault();
-    let x = document.getElementById("input_" + taskId); 
+    let x = document.getElementById("input_" + taskId);
     props.updateFunc(taskId, event.target.value); // есть ли другой вариант реализации обработки импута, или нужно постоянно ререндерить
   }
 
-  // Стоит ли вынести todoListItem в отдельную компоненту 
+  // Стоит ли вынести todoListItem в отдельную компоненту
   function todoListItem(task) {
     return (
       <div key={task.id} style={{ margin: "10px auto" }}>
