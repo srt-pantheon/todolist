@@ -19,26 +19,22 @@ function TodoList(props) {
   }
 
   function toggleInput(event, taskId) {
-    let x = document.getElementById("input_" + taskId);
-    x.hasAttribute("disabled")
-      ? x.removeAttribute("disabled")
-      : x.setAttribute("disabled", "true");
+      //переделать с колбэком по аналогии changeHanler - чтобы функция меняла status в todos и происходил ререндер, при котором менялось p или input
   }
 
   function changeHandler(event, taskId) {
     event.preventDefault();
-    let x = document.getElementById("input_" + taskId);
-    props.updateFunc(taskId, event.target.value); // есть ли другой вариант реализации обработки импута, или нужно постоянно ререндерить
+    props.updateFunc(taskId, event.target.value);
   }
 
-  // Стоит ли вынести todoListItem в отдельную компоненту
   function todoListItem(task) {
     return (
       <div key={task.id} style={{ margin: "10px auto" }}>
         <Row justify="center" style={{ alignItems: "center" }}>
           <Col span={5}>
             <input
-              disabled="disabled"
+              // написать условие чтобы превращалось в инпут, а если не редактировать то текст P - вынести уловие сюда
+              disabled={task.status}
               type="text"
               value={task.task}
               id={"input_" + task.id}

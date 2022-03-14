@@ -3,12 +3,11 @@ import { useState } from "react";
 import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
 
-// Решил релизовать через функции колбэки получается. Какой вариант предпочтительнее так, или как делал в первый раз где
-// в каждую компопненту передавались пропсы и функции внутри этих компонент обрабатывали локальные данные???
-
 function Todo() {
   const [todos, setTodos] = useState([]);
   const [uniqueId, setUniqueId] = useState(1);
+  const [status, setStatus] = useState("disabled");
+  console.log("todos = ", todos);
 
   function addTodo(task) {
     const newTodos = [...todos, task];
@@ -38,7 +37,7 @@ function Todo() {
 
   return (
     <div className="Todo">
-      <TodoAdd onClick={addTodo} uniqueId={uniqueId} />
+      <TodoAdd onClick={addTodo} uniqueId={uniqueId} status={status} />
       <TodoList todos={todos} removeFunc={removeTodo} updateFunc={updateTodo} />
     </div>
   );
