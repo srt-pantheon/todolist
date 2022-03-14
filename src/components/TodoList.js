@@ -19,7 +19,9 @@ function TodoList(props) {
   }
 
   function toggleInput(event, taskId) {
-      //переделать с колбэком по аналогии changeHanler - чтобы функция меняла status в todos и происходил ререндер, при котором менялось p или input
+    event.preventDefault();
+    props.statusFunc(taskId);
+    //переделать с колбэком по аналогии changeHanler - чтобы функция меняла status в todos и происходил ререндер, при котором менялось p или input
   }
 
   function changeHandler(event, taskId) {
@@ -34,7 +36,7 @@ function TodoList(props) {
           <Col span={5}>
             <input
               // написать условие чтобы превращалось в инпут, а если не редактировать то текст P - вынести уловие сюда
-              disabled={task.status}
+              disabled={task.status == "enabled" ? false : true}
               type="text"
               value={task.task}
               id={"input_" + task.id}
