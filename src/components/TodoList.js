@@ -30,41 +30,70 @@ function TodoList(props) {
   }
 
   function todoListItem(task) {
-    return (
-      <div key={task.id} style={{ margin: "10px auto" }}>
-        <Row justify="center" style={{ alignItems: "center" }}>
-          <Col span={5}>
-            <input
-              // написать условие чтобы превращалось в инпут, а если не редактировать то текст P - вынести уловие сюда
-              disabled={task.status == "enabled" ? false : true}
-              type="text"
-              value={task.task}
-              id={"input_" + task.id}
-              onChange={(e) => changeHandler(e, task.id)}
-            />
-          </Col>
-          <Col
-            span={1}
-            style={{ textAlignVertical: "center", textAlign: "center" }}
-          >
-            <a>
-              <CloseCircleOutlined
-                id={task.id}
-                onClick={(e) => removeHandler(e)}
+    if (task.status == "enabled") {
+      return (
+        <div key={task.id} style={{ margin: "10px auto" }}>
+          <Row justify="center" style={{ alignItems: "center" }}>
+            <Col span={5}>
+              <input
+                type="text"
+                value={task.task}
+                id={"input_" + task.id}
+                onChange={(e) => changeHandler(e, task.id)}
               />
-            </a>
-          </Col>
-          <Col
-            span={1}
-            style={{ textAlignVertical: "center", textAlign: "center" }}
-          >
-            <a>
-              <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
-            </a>
-          </Col>
-        </Row>
-      </div>
-    );
+            </Col>
+            <Col
+              span={1}
+              style={{ textAlignVertical: "center", textAlign: "center" }}
+            >
+              <a>
+                <CloseCircleOutlined
+                  id={task.id}
+                  onClick={(e) => removeHandler(e)}
+                />
+              </a>
+            </Col>
+            <Col
+              span={1}
+              style={{ textAlignVertical: "center", textAlign: "center" }}
+            >
+              <a>
+                <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
+              </a>
+            </Col>
+          </Row>
+        </div>
+      );
+    } else {
+      return (
+        <div key={task.id} style={{ margin: "10px auto" }}>
+          <Row justify="center" style={{ alignItems: "center" }}>
+            <Col span={5}>
+              <p id={"input_" + task.id}>{task.task}</p>
+            </Col>
+            <Col
+              span={1}
+              style={{ textAlignVertical: "center", textAlign: "center" }}
+            >
+              <a>
+                <CloseCircleOutlined
+                  id={task.id}
+                  onClick={(e) => removeHandler(e)}
+                />
+              </a>
+            </Col>
+            <Col
+              span={1}
+              style={{ textAlignVertical: "center", textAlign: "center" }}
+            >
+              <a>
+                <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
+              </a>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
   }
 
   // нормально ли делать такой return?
