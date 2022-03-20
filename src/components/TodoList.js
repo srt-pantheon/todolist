@@ -13,15 +13,13 @@ function TodoList(props) {
     return list;
   }
 
-  function removeHandler(event) {
-    let taskId = event.target.parentElement.id;
+  function removeHandler(event, taskId) {
     props.removeFunc(taskId);
   }
 
   function toggleInput(event, taskId) {
     event.preventDefault();
     props.statusFunc(taskId);
-    //переделать с колбэком по аналогии changeHanler - чтобы функция меняла status в todos и происходил ререндер, при котором менялось p или input
   }
 
   function changeHandler(event, taskId) {
@@ -29,71 +27,45 @@ function TodoList(props) {
     props.updateFunc(taskId, event.target.value);
   }
 
-  function todoListItem(task) {
-    if (task.status == "enabled") {
+  function returnElement(taskStatus, taskTask, taskID) {
+    if (taskStatus == "enabled") {
       return (
-        <div key={task.id} style={{ margin: "10px auto" }}>
-          <Row justify="center" style={{ alignItems: "center" }}>
-            <Col span={5}>
-              <input
-                type="text"
-                value={task.task}
-                id={"input_" + task.id}
-                onChange={(e) => changeHandler(e, task.id)}
-              />
-            </Col>
-            <Col
-              span={1}
-              style={{ textAlignVertical: "center", textAlign: "center" }}
-            >
-              <a>
-                <CloseCircleOutlined
-                  id={task.id}
-                  onClick={(e) => removeHandler(e)}
-                />
-              </a>
-            </Col>
-            <Col
-              span={1}
-              style={{ textAlignVertical: "center", textAlign: "center" }}
-            >
-              <a>
-                <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
-              </a>
-            </Col>
-          </Row>
-        </div>
+        <input
+          type="text"
+          value={taskTask}
+          id={"input_" + taskID}
+          onChange={(e) => changeHandler(e, taskID)}
+        />
       );
     } else {
-      return (
-        <div key={task.id} style={{ margin: "10px auto" }}>
-          <Row justify="center" style={{ alignItems: "center" }}>
-            <Col span={5}>
-              <p id={"input_" + task.id}>{task.task}</p>
-            </Col>
-            <Col
-              span={1}
-              style={{ textAlignVertical: "center", textAlign: "center" }}
-            >
-              <a>
-                <CloseCircleOutlined
-                  id={task.id}
-                  onClick={(e) => removeHandler(e)}
-                />
-              </a>
-            </Col>
-            <Col
-              span={1}
-              style={{ textAlignVertical: "center", textAlign: "center" }}
-            >
-              <a>
-                <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
-              </a>
-            </Col>
-          </Row>
-        </div>
-      );
+      return <p id={"input_" + taskID}>{taskTask}</p>;
     }
+  }
+
+  function todoListItem(task) {
+    return (
+      <div key={task.id} style={{ margin: "10px auto" }}>
+        <Row justify="center" style={{ alignItems: "center" }}>
+          <Col span={5}>{returnElement(task.status, task.task, task.id)}</Col>
+          <Col
+            span={1}
+            style={{ textAlignVertical: "center", textAlign: "center" }}
+          >
+            <a>
+              <CloseCircleOutlined onClick={(e) => removeHandler(e, task.id)} />
+            </a>
+          </Col>
+          <Col
+            span={1}
+            style={{ textAlignVertical: "center", textAlign: "center" }}
+          >
+            <a>
+              <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
+            </a>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 
   // нормально ли делать такой return?

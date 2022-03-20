@@ -5,7 +5,7 @@ function TodoAdd(props) {
   const [inputValue, setInputValue] = useState("");
 
   function addTodoHandler() {
-    let obj = { id: props.uniqueId, task: inputValue, status: 'disabled'};
+    let obj = { id: props.uniqueId, task: inputValue, status: "disabled" };
     props.onClick(obj);
     setInputValue();
   }
