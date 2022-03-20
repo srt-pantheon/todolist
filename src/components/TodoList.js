@@ -32,6 +32,7 @@ function TodoList(props) {
       return (
         <input
           type="text"
+          className='todo-input'
           value={taskTask}
           id={"input_" + taskID}
           onChange={(e) => changeHandler(e, taskID)}
@@ -44,8 +45,8 @@ function TodoList(props) {
 
   function todoListItem(task) {
     return (
-      <div key={task.id} style={{ margin: "10px auto" }}>
-        <Row justify="center" style={{ alignItems: "center" }}>
+      <div key={task.id} style={{ margin: "10px auto" }} >
+        <Row justify="center" style={{ alignItems: "center" }} className={'todo-row'}>
           <Col span={5}>{returnElement(task.status, task.task, task.id)}</Col>
           <Col
             span={1}
@@ -68,7 +69,6 @@ function TodoList(props) {
     );
   }
 
-  // нормально ли делать такой return?
   return generateList(props.todos);
 }
 
