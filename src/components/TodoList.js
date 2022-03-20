@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Row, Col } from "antd";
-import { CloseCircleOutlined, EditOutlined } from "@ant-design/icons";
+import { RiCloseCircleLine } from "react-icons/ri";
+import { TiEdit } from "react-icons/ti";
 
 function TodoList(props) {
   const [inputTest, changeInputTest] = useState("");
@@ -32,7 +32,7 @@ function TodoList(props) {
       return (
         <input
           type="text"
-          className='todo-input'
+          className="todo-input"
           value={taskTask}
           id={"input_" + taskID}
           onChange={(e) => changeHandler(e, taskID)}
@@ -45,26 +45,25 @@ function TodoList(props) {
 
   function todoListItem(task) {
     return (
-      <div key={task.id} style={{ margin: "10px auto" }} >
-        <Row justify="center" style={{ alignItems: "center" }} className={'todo-row'}>
-          <Col span={5}>{returnElement(task.status, task.task, task.id)}</Col>
-          <Col
-            span={1}
-            style={{ textAlignVertical: "center", textAlign: "center" }}
-          >
-            <a>
-              <CloseCircleOutlined onClick={(e) => removeHandler(e, task.id)} />
-            </a>
-          </Col>
-          <Col
-            span={1}
-            style={{ textAlignVertical: "center", textAlign: "center" }}
-          >
-            <a>
-              <EditOutlined onClick={(e) => toggleInput(e, task.id)} />
-            </a>
-          </Col>
-        </Row>
+      <div
+        // className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
+        className={"todo-row"}
+        key={task.id}
+      >
+        <div key={task.id}>
+          {returnElement(task.status, task.task, task.id)}
+        </div>
+
+        <div className="icons">
+          <RiCloseCircleLine
+            onClick={(e) => removeHandler(e, task.id)}
+            className="delete-icon"
+          />
+          <TiEdit
+            onClick={(e) => toggleInput(e, task.id)}
+            className="edit-icon"
+          />
+        </div>
       </div>
     );
   }

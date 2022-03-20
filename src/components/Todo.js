@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import { useState } from "react";
 import TodoAdd from "./TodoAdd";
 import TodoList from "./TodoList";
